@@ -3,6 +3,8 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
   <title></title>
   <style type="text/css">
     *{
@@ -71,20 +73,31 @@
         <tr height="20px" style="border-top:solid 1.5px #006393">
           <th width="20%" align="center" bgcolor="#D9FFFF">城市：</th>
           <td colspan="2" align="right">
-            从&nbsp;&nbsp;&nbsp;&nbsp;  <input type="text" name="textfield1" size="25" maxlength="35" value="中文/拼音" style="border: #a6babc 1px solid;height:25px">
+              <select name="input_province" id="input_province" class="form-control">
+                <option value=""selected>--请选择--</option>
+                <option value="北京">北京</option>
+                <option value="上海">上海</option>
+                <option value="成都">成都</option>
+                <option value="南京">南京</option>
+              </select>
           </td>
           <td colspan="1" align="center" width="10%">
             到
           </td>
           <td colspan="2" align="left">
-            <input type="text" name="textfield2" size="25" maxlength="35" value="中文/拼音" style="border: #a6babc 1px solid;height:25px">
-          </td>
+            <select name="input_city" id="input_city" class="form-control">
+              <option value=""selected>--请选择--</option>
+              <option value="北京">北京</option>
+              <option value="上海">上海</option>
+              <option value="成都">成都</option>
+              <option value="南京">南京</option>
+            </select>          </td>
         </tr>
 
         <tr height="20px" style="border-top:solid 1.5px #006393">
           <th width="20%" align="center" bgcolor="#D9FFFF">日期：</th>
           <td colspan="2" align="right">
-            往&nbsp;&nbsp;&nbsp;&nbsp;  <input type="text" name="Ttime1" size="25" maxlength="35" style="border: #a6babc 1px solid;height:25px">
+            往&nbsp;&nbsp;&nbsp;&nbsp;  <input type="date" name="Ttime1" size="25" maxlength="35" style="border: #a6babc 1px solid;height:25px">
           </td>
           <td colspan="1" align="center" width="10%">
             返

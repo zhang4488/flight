@@ -101,9 +101,9 @@
     <div class="wrap">
         <div class="container">
             <h1 style="color: white; margin:0px; text-align: center">一共<%=money%>元，请用信用卡支付</h1>
-            <form>
-                <label><input type="text" placeholder="卡号"/></label>
-                <label><input type="password" placeholder="密码" /></label>
+            <form action="PayServlet?method=pay" method="post">
+                <label><input type="text" placeholder="卡号"  name="account"/></label>
+                <label><input type="password" placeholder="密码" name="password"/></label>
                 <input type="submit" value="购买"/>
             </form>
 

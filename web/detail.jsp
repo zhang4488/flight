@@ -111,7 +111,7 @@
     <div class="tel">联系电话：13845620324</div>
     <hr width="100%">
     <div class="content">
-        <form action="PayServlet?flag=<%=roteDate.getFlag()%>&flightnumber=<%=flight.getFlightnumber()%>&money=<%=flight.getPrice()%>" method="post">
+        <form action="PayServlet?flag=<%=roteDate.getFlag()%>&flightnumber=<%=flight.getFlightnumber()%>&money=<%=flight.getPrice()%>&method=gopay" method="post">
             <table class="content" border="0" cellspacing="0" cellpadding="0" frame="void" rules="rows">
                 <tr height="20px" style="font-family: 隶书;">
                     <th colspan="4" align="center" valign="top">
