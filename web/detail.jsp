@@ -31,7 +31,7 @@
             font-family: 隶书;
             font-size: 20px;
             float: left;
-            margin-top: 8px;
+            margin-top: 33px;
         }
         .add{
             width: 150px;
@@ -87,10 +87,37 @@
         .www{
             margin-top: -20px;
         }
-
-
+        #hide{
+            display: none;
+        }
+        #hide2{
+            display: none;
+        }
 
     </style>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById("show").onclick = function() {
+                document.getElementById("hide").style.display = "block";
+            }
+            document.getElementById("nshow").onclick = function() {
+                document.getElementById("hide").style.display = "none";
+            }
+
+            document.getElementById("show2").onclick = function() {
+                document.getElementById("hide2").style.display = "block";
+            }
+            document.getElementById("nshow2").onclick = function() {
+                document.getElementById("hide2").style.display = "none";
+            }
+            document.getElementById("show3").onclick = function() {
+                document.getElementById("hide3").style.display = "block";
+            }
+            document.getElementById("nshow3").onclick = function() {
+                document.getElementById("hide3").style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
 <%
@@ -105,10 +132,24 @@
         <p class="sss"><%=flight.getAirportofdeparture()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=flight.getLandingAirport()%></p>
     </div>
     <hr width="100%">
-    <div class="info">乘机人：小枫</div>
-    <a href="#"><div class="add">添加乘机人</div></a>
-    <div class="idcar">身份证号：513921200506165169</div>
-    <div class="tel">联系电话：13845620324</div>
+    <div class="info">乘机人：<input type="text" name="cjr1" id="cjr1" value="" /></div>
+    <a href="#"><div class="add"><input type="button" id="show" value="添加乘机人"/></div></a>
+    <div class="idcar">身份证号：<input type="text" name="ic1" id="ic1" value="" /></div>
+    <div class="tel">联系电话：<input type="tel" name="tel1" id="tel1" value="" /></div>
+
+    <div id='hide'>
+        <div class="info">乘机人：<input type="text" name="cjr1" id="cjr2" value="" /></div>
+        <a href="#"><div class="add"><input type="button" id="show2" value="添加乘机人"/><input type="button" id="nshow" value="删除" /></div></a>
+        <div class="idcar">身份证号：<input type="text" name="ic1" id="ic2" value="" /></div>
+        <div class="tel">联系电话：<input type="tel" name="tel1" id="tel2" value="" /></div>
+    </div>
+    <div id='hide2'>
+        <div class="info">乘机人：<input type="text" name="cjr1" id="cjr3" value="" /></div>
+        <a href="#"><div class="add"><input type="button" id="nshow2" value="删除" /></div></a>
+        <div class="idcar">身份证号：<input type="text" name="ic1" id="ic3" value="" /></div>
+        <div class="tel">联系电话：<input type="tel" name="tel1" id="tel3" value="" /></div>
+    </div>
+
     <hr width="100%">
     <div class="content">
         <form action="PayServlet?flag=<%=roteDate.getFlag()%>&flightnumber=<%=flight.getFlightnumber()%>&money=<%=flight.getPrice()%>&method=gopay" method="post">
