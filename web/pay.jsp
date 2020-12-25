@@ -1,4 +1,4 @@
-<%--
+<%@ page import="data.Order" %><%--
   Created by IntelliJ IDEA.
   User: 张松林
   Date: 2020/12/21
@@ -91,7 +91,7 @@
 <body>
 <%
     request.setCharacterEncoding("UTF-8");
-    String money = (String) request.getAttribute("money");
+    Order order = (Order) request.getAttribute("orderinfo");
 %>
     <div class="top">
         <li><a href="">首页 </a></li>
@@ -100,8 +100,8 @@
     </div>
     <div class="wrap">
         <div class="container">
-            <h1 style="color: white; margin:0px; text-align: center">一共<%=money%>元，请用信用卡支付</h1>
-            <form action="PayServlet?method=pay" method="post">
+            <h1 style="color: white; margin:0px; text-align: center">一共<%=order.getFlightprice()%>元，请用信用卡支付</h1>
+            <form action="PayServlet?user=<%=order.getUserid()%>&flag=<%=order.getFlag()%>&flightnumber=<%=order.getFlightnumber()%>&people1=<%=order.getPeople1()%>&people2=<%=order.getPeople2()%>&people3=<%=order.getPeople3()%>&phone=<%=order.getPhone1()%>&flightprice=<%=order.getFlightprice()%>&method=pay" method="post">
                 <label><input type="text" placeholder="卡号"  name="account"/></label>
                 <label><input type="password" placeholder="密码" name="password"/></label>
                 <input type="submit" value="购买"/>

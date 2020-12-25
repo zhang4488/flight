@@ -2,8 +2,6 @@ package servlet;
 
 import dao.FlightDao;
 import dao.FlightDaolmpl;
-import data.Flight;
-import data.RoteDate;
 import data.User;
 
 import javax.servlet.ServletException;
@@ -11,22 +9,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "GoDetailServlet", urlPatterns = "/GoDetailServlet")
-public class GoDetailServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet",urlPatterns = "/LoginServlet")
+public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String flag =  request.getParameter("flag");
-        String flightnumber = request.getParameter("flightnumber");
+        String userid = request.getParameter("userid");
+        String password = request.getParameter("password");
         FlightDao flightDao = new FlightDaolmpl();
-        Flight flight  = flightDao.findflight(flightnumber);
-        RoteDate roteDate  = flightDao.getrotedate(flag);
-        request.setAttribute("roteDate",roteDate);
-        request.setAttribute("flight",flight);
+        User user = flightDao.getuser(userid,password);
+        if (user!=null){
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            response.sendRedirect("index.jsp");
+        }else {
+            request.setAttribute("loginerro","ddd");
+            request.getRequestDispatcher("index.jsp").forward(request,response);
+        }
 
-        request.getRequestDispatcher("detail.jsp").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -3,6 +3,7 @@ package servlet;
 import dao.FlightDao;
 import dao.FlightDaolmpl;
 import data.Flight;
+import data.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +15,8 @@ public class GetfilghtServlet extends javax.servlet.http.HttpServlet {
         String Tpoint = request.getParameter("input_province");
         String Lpoint = request.getParameter("input_city");
         String Ttime = request.getParameter("Ttime1");
-        System.out.println(Ttime);
+
+
         FlightDao flightDao = new FlightDaolmpl();
         String flag = flightDao.flightnumber(Tpoint,Lpoint,Ttime);
         List<Flight> flights  = flightDao.getflight(flag);

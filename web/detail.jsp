@@ -1,5 +1,8 @@
 <%@ page import="data.Flight" %>
-<%@ page import="data.RoteDate" %><%--
+<%@ page import="data.RoteDate" %>
+<%@ page import="dao.FlightDao" %>
+<%@ page import="dao.FlightDaolmpl" %>
+<%@ page import="data.User" %><%--
   Created by IntelliJ IDEA.
   User: 张松林
   Date: 2020/12/21
@@ -131,28 +134,31 @@
         <p class="www"><span><%=flight.getDeparturetime()%></span><img src="img/xianduan.png"><span><%=flight.getLandingtime()%></span></p>
         <p class="sss"><%=flight.getAirportofdeparture()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=flight.getLandingAirport()%></p>
     </div>
-    <hr width="100%">
-    <div class="info">乘机人：<input type="text" name="cjr1" id="cjr1" value="" /></div>
-    <a href="#"><div class="add"><input type="button" id="show" value="添加乘机人"/></div></a>
-    <div class="idcar">身份证号：<input type="text" name="ic1" id="ic1" value="" /></div>
-    <div class="tel">联系电话：<input type="tel" name="tel1" id="tel1" value="" /></div>
+        <form action="PayServlet?method=gopay&flightnumber=<%=flight.getFlightnumber()%>&flag=<%=roteDate.getFlag()%>" method="post">
 
-    <div id='hide'>
-        <div class="info">乘机人：<input type="text" name="cjr1" id="cjr2" value="" /></div>
-        <a href="#"><div class="add"><input type="button" id="show2" value="添加乘机人"/><input type="button" id="nshow" value="删除" /></div></a>
-        <div class="idcar">身份证号：<input type="text" name="ic1" id="ic2" value="" /></div>
-        <div class="tel">联系电话：<input type="tel" name="tel1" id="tel2" value="" /></div>
-    </div>
-    <div id='hide2'>
-        <div class="info">乘机人：<input type="text" name="cjr1" id="cjr3" value="" /></div>
-        <a href="#"><div class="add"><input type="button" id="nshow2" value="删除" /></div></a>
-        <div class="idcar">身份证号：<input type="text" name="ic1" id="ic3" value="" /></div>
-        <div class="tel">联系电话：<input type="tel" name="tel1" id="tel3" value="" /></div>
-    </div>
+    </form>
 
     <hr width="100%">
     <div class="content">
         <form action="PayServlet?flag=<%=roteDate.getFlag()%>&flightnumber=<%=flight.getFlightnumber()%>&money=<%=flight.getPrice()%>&method=gopay" method="post">
+            <hr width="100%">
+            <div class="info">乘机人：<input type="text" name="cjr1" id="cjr1" value="" /></div>
+            <a href="#"><div class="add"><input type="button" id="show" value="添加乘机人"/></div></a>
+            <div class="idcar">身份证号：<input type="text" name="ic1" id="ic1" value="" /></div>
+            <div class="tel">联系电话：<input type="tel" name="tel1" id="tel1" value="" /></div>
+
+            <div id='hide'>
+                <div class="info">乘机人：<input type="text" name="cjr2" id="cjr2" value="" /></div>
+                <a href="#"><div class="add"><input type="button" id="show2" value="添加乘机人"/><input type="button" id="nshow" value="删除" /></div></a>
+                <div class="idcar">身份证号：<input type="text" name="ic2" id="ic2" value="" /></div>
+                <div class="tel">联系电话：<input type="tel" name="tel2" id="tel2" value="" /></div>
+            </div>
+            <div id='hide2'>
+                <div class="info">乘机人：<input type="text" name="cjr3" id="cjr3" value="" /></div>
+                <a href="#"><div class="add"><input type="button" id="nshow2" value="删除" /></div></a>
+                <div class="idcar">身份证号：<input type="text" name="ic3" id="ic3" value="" /></div>
+                <div class="tel">联系电话：<input type="tel" name="tel3" id="tel3" value="" /></div>
+            </div>
             <table class="content" border="0" cellspacing="0" cellpadding="0" frame="void" rules="rows">
                 <tr height="20px" style="font-family: 隶书;">
                     <th colspan="4" align="center" valign="top">

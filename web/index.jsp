@@ -1,3 +1,4 @@
+<%@ page import="data.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -59,6 +60,9 @@
   </style>
 </head>
 <body background="img/bg5.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%;">
+<%
+  User user = ((User) session.getAttribute("user"));
+%>
 <div class="feiji">
   <img src="img/haibao2.png" width="100%" height="350px">
 
@@ -67,6 +71,17 @@
   <div class="head">
     <span>机票查询预订</span>
   </div>
+
+  <div><ul>
+  <% if (session.getAttribute("user") != null) {%>
+  <p>用户名：<%=user.getUsername()%></p>
+  <li><a href="show.jsp?out=true">退出登录</a></li>
+  <li><a href="register.jsp">注册</a></li>
+  <%} else {%>
+  <li><a href="login.jsp">登录</a></li>
+  <li><a href="register.jsp">注册</a></li>
+  <%}%>
+  </ul></div>
   <div class="reacher">
     <form action="GetfilghtServlet" method="post">
       <table class="content" width="800" height="300" border="1" cellspacing="0" cellpadding="0" frame="void" rules="rows">

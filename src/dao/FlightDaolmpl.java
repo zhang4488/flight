@@ -1,13 +1,12 @@
 package dao;
 
 import data.Flight;
+import data.Order;
 import data.RoteDate;
+import data.User;
 import db.DBConnection;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,4 +112,102 @@ public class FlightDaolmpl implements FlightDao {
         }
         return flight;
     }
+
+    @Override
+    public int pay(String account, String password, String money, String user) {
+        int moneys = Integer.parseInt(money);
+        try {
+            Connection con = db.getConnection();
+            PreparedStatement pst = con.prepareStatement("select * from user where userid=? && account=? && paypassword=?");
+            pst.setString(1, user);
+            pst.setString(2, account);
+            pst.setString(3, password);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()){
+                if (moneys>rs.getInt("money")){
+                    return -1;
+                }else {
+                    PreparedStatement pst2 = con.prepareStatement("update user set money = money-'"+moneys+"' where userid=? && account=? && paypassword=?");
+                    pst2.setString(1, user);
+                    pst2.setString(2, account);
+                    pst2.setString(3, password);
+                    pst2.executeUpdate();
+                    pst2.close();
+                }
+            }else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
+
+    @Override
+    public int register(String userid, String username, String password) {
+        try {
+            Connection con = db.getConnection();
+            PreparedStatement pst = con.prepareStatement("insert into user (userid,password,username) values ('"+userid+"','"+password+"','"+username+"')");
+            pst.executeUpdate();
+            pst.close();
+            return 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    @Override
+    public User getuser(String userid, String password) {
+        User user = new User();
+        try {
+            Connection con = db.getConnection();
+            PreparedStatement pst = con.prepareStatement("select * from user where userid=? && password=?");
+            pst.setString(1, userid);
+            pst.setString(2, password);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()){
+                user.setUsername(rs.getString("username"));
+                user.setUserid(rs.getString("userid"));
+                user.setMoney(rs.getInt("money"));
+            }else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
+    public void addorder(Order order) {
+        String phone = order.getPhone1();
+        String people1 = order.getPeople1();
+        String people2 = order.getPeople2();
+        String people3 = order.getPeople3();
+        System.out.println(people1);
+        try {
+            Connection con = db.getConnection();
+            PreparedStatement pst = con.prepareStatement("insert into flightorder (userid,flag,flightnumber,status,people1,phone,people2,people3,flightprice) values (?,?,?,0,'"+people1+"',?,?,?,?)");
+            pst.setString(1, order.getUserid());
+            pst.setString(2, order.getFlag());
+            pst.setString(3, order.getFlightnumber());
+//            pst.setString(4, people1);
+            pst.setString(4, phone);
+            pst.setString(5, people2);
+            pst.setString(6, people3);
+            pst.setString(7, order.getFlightprice());
+
+            pst.executeUpdate();
+            pst.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }
