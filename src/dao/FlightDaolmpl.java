@@ -1,9 +1,6 @@
 package dao;
 
-import data.Flight;
-import data.Order;
-import data.RoteDate;
-import data.User;
+import data.*;
 import db.DBConnection;
 
 import java.sql.*;
@@ -13,8 +10,9 @@ import java.util.List;
 public class FlightDaolmpl implements FlightDao {
     DBConnection db = new DBConnection();
     @Override
-    public String flightnumber(String tpoint, String lpoint, String ttime) {
+    public String flightnumber(String tpoint, String lpoint, String ttime, String level) {
         String flight=null;
+        int levels = Integer.parseInt(level);
         //获取数据库连接
         try {
             //获取数据库连接
@@ -22,7 +20,7 @@ public class FlightDaolmpl implements FlightDao {
 
             //执行查询
             Statement st = con.createStatement();
-            ResultSet rs  = st.executeQuery("select flag FROM roteanddate WHERE Takeoffpoint ='"+tpoint+"' and Landingpoint='"+lpoint+"' and riqi='"+ttime+"'");
+            ResultSet rs  = st.executeQuery("select flag FROM roteanddate WHERE Takeoffpoint ='"+tpoint+"' and Landingpoint='"+lpoint+"' and riqi='"+ttime+"' and  level='"+levels+"'");
             if (rs.next()){
                 flight = rs.getString("flag");
             }else {
@@ -209,5 +207,90 @@ public class FlightDaolmpl implements FlightDao {
 
     }
 
+    @Override
+    public ArrayList<Order> getorder(String userid) {
+        ArrayList<Order> orders = new ArrayList<Order>();
+        try {
+            Connection con = db.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from flightorder where userid='"+userid+"'");
 
+            while (rs.next()) {
+                Order order = new Order();
+                order.setFlag(rs.getString("flag"));
+                order.setFlightnumber(rs.getString("flightnumber"));
+                order.setFlightnumber(rs.getString("flightnumber"));
+                order.setStatus(rs.getInt("status"));
+                order.setPeople1(rs.getString("people1"));
+                order.setIc1(rs.getString("idcard1"));
+                order.setPhone1(rs.getString("phone"));
+                order.setLocal1(rs.getString("local"));
+                order.setFlightprice(rs.getString("flightprice"));
+                orders.add(order);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  orders;
+    }
+
+    @Override
+    public ArrayList<Seat> getseat(String flightnumber) {
+        ArrayList<Seat> seats = new ArrayList<Seat>();
+        try {
+            Connection con = db.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from seat where flightnumber='"+flightnumber+"'");
+
+            while (rs.next()) {
+                Seat seat = new Seat();
+                seat.setS1(rs.getString("s1"));
+                seats.add(seat);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  seats;
+    }
+
+    @Override
+    public int chickin(String local1, String local2, String local3, String orderid, String flightnumber) {
+        try {
+            Connection con = db.getConnection();
+            PreparedStatement pst = con.prepareStatement("update flightorder set local = ?,local2 =?, local3=? where orderid=?");
+            pst.setString(1, local1);
+            pst.setString(2, local2);
+            pst.setString(3, local3);
+            pst.setString(4, orderid);
+
+
+            pst.executeUpdate();
+            pst.close();
+
+            PreparedStatement pst2 = con.prepareStatement("insert into seat (s1,flightnumber) values (?,?)");
+            pst2.setString(1, local1);
+            pst2.setString(2, flightnumber);
+            pst2.executeUpdate();
+            pst2.close();
+
+            PreparedStatement pst3 = con.prepareStatement("insert into seat (s1,flightnumber) values (?,?)");
+            pst3.setString(1, local2);
+            pst3.setString(2, flightnumber);
+            pst3.executeUpdate();
+            pst3.close();
+
+            PreparedStatement pst4 = con.prepareStatement("insert into seat (s1,flightnumber) values (?,?)");
+            pst4.setString(1, local3);
+            pst4.setString(2, flightnumber);
+            pst4.executeUpdate();
+            pst4.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
 }

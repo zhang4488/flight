@@ -1,14 +1,12 @@
 package dao;
 
-import data.Flight;
-import data.Order;
-import data.RoteDate;
-import data.User;
+import data.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface FlightDao {
-    String flightnumber(String tpoint, String lpoint, String ttime);
+    String flightnumber(String tpoint, String lpoint, String ttime, String level);
 
     List<Flight> getflight(String flightnumber);
 
@@ -23,4 +21,10 @@ public interface FlightDao {
     User getuser(String userid, String password);
 
     void addorder(Order order);
+
+    ArrayList<Order> getorder(String userid);
+
+    ArrayList<Seat> getseat(String flightnumber);
+
+    int chickin(String local1, String local2, String local3, String orderid, String flightnumber);
 }
