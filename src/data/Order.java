@@ -121,4 +121,24 @@ public class Order {
     String ic3;
     String phone3;
     String flightprice;
+
+    public String getLocal1() {
+        return local1;
+    }
+
+    public void setLocal1(String local1) {
+        this.local1 = local1;
+    }
+
+    String local1;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    int status;
 }

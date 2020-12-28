@@ -111,7 +111,7 @@ public class PayServlet extends HttpServlet {
         if (payflag==1){
             flightDao.addorder(order);
             request.setAttribute("info","支付成功！");
-            request.getRequestDispatcher("index.jsp").forward(request,response);
+            request.getRequestDispatcher("order.jsp").forward(request,response);
         }else if (payflag==-1){
             request.setAttribute("erron","余额不足，支付失败");
             request.getRequestDispatcher("pay.jsp").forward(request,response);

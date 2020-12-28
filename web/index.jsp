@@ -79,7 +79,7 @@
   <li><a href="register.jsp">注册</a></li>
   <%} else {%>
   <li><a href="login.jsp">登录</a></li>
-  <li><a href="register.jsp">注册</a></li>
+  <li><a href="seat.jsp">注册</a></li>
   <%}%>
   </ul></div>
   <div class="reacher">
@@ -124,10 +124,10 @@
         <tr height="20" style="border-top:solid 1.5px #006393">
           <th width="23%" align="center" bgcolor="#D9FEFF">舱位：</th>
           <th  align="center" colspan="2" >
-            <input type="radio" name="radilbutton" value="经济舱" checked><font color="red">经济舱</font>
+            <input type="radio" name="radilbutton" value="0" checked><font color="red">经济舱</font>
           </th>
           <th  align="center" colspan="3" >
-            <input type="radio" name="radilbutton" value="公务舱"><font color="red">公务舱</font>
+            <input type="radio" name="radilbutton" value="1" ><font color="red">公务舱</font>
           </th>
         </tr>
         <tr height="60" style="border-top:solid 1.5px #006393">

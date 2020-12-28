@@ -1,5 +1,6 @@
 <%@ page import="data.Flight" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="data.User" %><%--
   Created by IntelliJ IDEA.
   User: 张松林
   Date: 2020/12/19
@@ -79,9 +80,18 @@
     String flightlp = (String) request.getAttribute("flightlp");
     String flighttt = (String) request.getAttribute("flighttt");
     String flag = (String) request.getAttribute("flag");
+    String level = (String) request.getAttribute("level");
 
+    String logininfo = (String) request.getAttribute("logininfo");
 
 %>
+
+    <%if (logininfo!=null){%>
+        <script type="text/javascript" language="javascript">
+            alert("<%=logininfo%>");
+        </script>
+    <%}%>
+
 <div class="big">
     <div class="head">
         <div class="city1"><span><%=flighttp%></span></div>
@@ -120,7 +130,7 @@
                         <font color="#f5720a" size="2" ><%=flight.getLandingAirport()%></font>
                     </td>
                     <td align="center" valign="top">
-                        <font color="#999999" size="2" >经济舱</font>
+                        <font color="#999999" size="2" ><%=level.equals("0") ? "经济舱" : "公务舱"%>
                     </td>
                 </tr>
                 <tr height="20px">

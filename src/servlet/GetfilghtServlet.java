@@ -15,16 +15,17 @@ public class GetfilghtServlet extends javax.servlet.http.HttpServlet {
         String Tpoint = request.getParameter("input_province");
         String Lpoint = request.getParameter("input_city");
         String Ttime = request.getParameter("Ttime1");
-
+        String level = request.getParameter("radilbutton");
 
         FlightDao flightDao = new FlightDaolmpl();
-        String flag = flightDao.flightnumber(Tpoint,Lpoint,Ttime);
+        String flag = flightDao.flightnumber(Tpoint,Lpoint,Ttime,level);
         List<Flight> flights  = flightDao.getflight(flag);
         request.setAttribute("flights",flights);
         request.setAttribute("flighttp",Tpoint);
         request.setAttribute("flightlp",Lpoint);
         request.setAttribute("flighttt",Ttime);
         request.setAttribute("flag",flag);
+        request.setAttribute("level",level);
         request.getRequestDispatcher("tickets.jsp").forward(request,response);
     }
 
